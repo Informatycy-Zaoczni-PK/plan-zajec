@@ -1,5 +1,19 @@
 {
-    "scripts": {
-        "start": "node server/index.js"
-    }
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "name": "xlsx",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatycy-Zaoczni-PK/plan-zajec.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Informatycy-Zaoczni-PK/plan-zajec/issues"
+  },
+  "homepage": "https://github.com/Informatycy-Zaoczni-PK/plan-zajec#readme"
 }
