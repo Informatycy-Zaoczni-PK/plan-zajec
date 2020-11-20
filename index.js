@@ -19,44 +19,27 @@ const isInArray = (obj, array) => {
 }
 
 const createLessons = (array, weeks, groups) => {
-    let lastKnownLesson = {};
-    let lastKnownHours = '';
-    let lastKnownDay = '';
-    let lastKnownIndex = 0;
     let newWeeks = weeks;
 
-    array.map((lesson, index) => {
+    array.map((lesson, lessonRow) => {
         if(typeof lesson[0] === "string"){
-            weeks.map((week, _index) => {
-                Object.keys(week).map(key => {
-                    Object.keys(week[key]).map((_key, __index) => {
-                        Object.keys(week[key][_key]).map((__key, ___index) => {
-                            if(typeof week[key][_key][__key] === "object"){
-                                const day = week[key][_key];
-                                if(week[key][_key].rowStart <= index && week[key][_key].rowEnd >= index){
-                                    Object.keys(day).map((hours, hIndex) => {
-                                        if(hours !== "rowStart" && hours !== "rowEnd"){
-                                            if(index >= day[hours].rowStart && index <= day[hours].rowEnd){
-                                                if(typeof lesson[0] !== "object"){
-                                                    if(newWeeks[_index][key][_key][__key].lessons){
-                                                        if(!isInArray({
-                                                            name: lesson[0],
-                                                            groups
-                                                        }, newWeeks[_index][key][_key][__key].lessons)){
-                                                            newWeeks[_index][key][_key][__key].lessons.push({
-                                                                name: lesson[0],
-                                                                groups
-                                                            })
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+            lesson[lesson.length] = lesson.join('/n');
+            newWeeks.map((week, weekIndex) => {
+                Object.keys(week).map((dayName, dayIndex) => {
+                    const day = week[dayName];
+                    if(lessonRow >= day.rowStart && lessonRow <= day.rowEnd){
+                        Object.keys(day).map((lessonHours) => {
+                            const _lessons = day[lessonHours]
+                            if(typeof _lessons !== "number"){
+                                if(lessonRow >= _lessons.rowStart && lessonRow <= _lessons.rowEnd){
+                                    newWeeks[weekIndex][dayName][lessonHours].lessons.push({
+                                        name: lesson[lesson.length - 1],
+                                        groups
                                     })
                                 }
                             }
                         })
-                    })
+                    }
                 })
             })
         }
@@ -132,7 +115,6 @@ const createDates = (array) => {
 
 const createArrayFromY1Workbook = (workbook) => {
     let array = [];
-    array[0] = `${workbook.sheet('2020_2021').cell('A1').value()} ${workbook.sheet('2020_2021').cell('D2').value()}`;
     
     const dates = createDates(workbook.sheet('2020_2021').range('A4:A392').value());
     const hours = createHours(workbook.sheet('2020_2021').range('B3:B392').value());
@@ -140,10 +122,7 @@ const createArrayFromY1Workbook = (workbook) => {
         hours.map((hour, _index) => {
             Object.keys(hour).map((key, __index) => {
                 if(hour[key].rowStart === index){
-                    array[index] = {
-                        [date]: hour
-                    }
-
+                    array.push(hour)
                     array = array.filter((el) => el !== undefined && el !== null)
                 }
             })
@@ -170,5 +149,9 @@ app.get('/lessons', (req, res) => {
 })
 
 app.listen(process.env.PORT || 8080, () => {
+    XlsxPopulate.fromFileAsync('./plan.xlsx')
+    .then(workbook => {
+        let lessons = createArrayFromY1Workbook(workbook)
+    })
     console.log('Server listening on port 8080');
 })
