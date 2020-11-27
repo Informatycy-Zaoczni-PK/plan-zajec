@@ -159,9 +159,5 @@ app.get('/lessons', (req, res) => {
 })
 
 app.listen(process.env.PORT || 8080, () => {
-    XlsxPopulate.fromFileAsync('./plan.xlsx')
-    .then(workbook => {
-        let lessons = createArrayFromY1Workbook(workbook)
-    })
     console.log('Server listening on port 8080');
 })
