@@ -127,6 +127,16 @@ const createArrayFromY1Workbook = (workbook) => {
                 }
             })
         })
+
+        array.map((week, weekIndex) => {
+            Object.keys(week).map(weekDay => {
+                const dayValue = week[weekDay];
+
+                if(dayValue.rowStart < index && dayValue.rowEnd > index){
+                    array[weekIndex][weekDay].date = date;
+                }
+            })
+        })
     })
     array = createLessons(workbook.sheet('2020_2021').range('D4:D392').value(), array, {w: 1, c: 1, l: 1});
     array = createLessons(workbook.sheet('2020_2021').range('E4:E392').value(), array, {w: 1, c: 1, l: 2});
