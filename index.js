@@ -8,17 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'client-build')));
-
-const isInArray = (obj, array) => {
-    for (let i = 0; i < array.length; i++){
-        if(array[i] === obj){
-            return true;
-        }
-    }
-
-    return false;
-}
+app.use(express.static(path.join(__dirname, 'build')));
 
 const createLessons = (array, weeks, groups) => {
     let newWeeks = weeks;
@@ -152,7 +142,7 @@ app.get('/lessons', (req, res) => {
 })
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client-build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(process.env.PORT || 8080, () => {
