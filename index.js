@@ -9,8 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 const isInArray = (obj, array) => {
-    console.log('obj', obj);
-    console.log('array', array);
     for (let i = 0; i < array.length; i++){
         if(array[i] === obj){
             return true;
@@ -116,20 +114,10 @@ const createDates = (array) => {
 }
 
 const createArrayFromY1Workbook = (workbook) => {
-    let array = [];
     
     const dates = createDates(workbook.sheet('2020_2021').range('A4:A392').value());
-    const hours = createHours(workbook.sheet('2020_2021').range('B3:B392').value());
+    let array = createHours(workbook.sheet('2020_2021').range('B3:B392').value());
     dates.map((date, index) => {
-        hours.map((hour, _index) => {
-            Object.keys(hour).map((key, __index) => {
-                if(hour[key].rowStart === index){
-                    array.push(hour)
-                    array = array.filter((el) => el !== undefined && el !== null)
-                }
-            })
-        })
-
         array.map((week, weekIndex) => {
             Object.keys(week).map(weekDay => {
                 const dayValue = week[weekDay];
@@ -140,6 +128,7 @@ const createArrayFromY1Workbook = (workbook) => {
             })
         })
     })
+
     array = createLessons(workbook.sheet('2020_2021').range('D4:D392').value(), array, {w: 1, c: 1, l: 1});
     array = createLessons(workbook.sheet('2020_2021').range('E4:E392').value(), array, {w: 1, c: 1, l: 2});
     array = createLessons(workbook.sheet('2020_2021').range('F4:F392').value(), array, {w: 1, c: 2, l: 3});
