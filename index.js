@@ -185,13 +185,15 @@ for (let i = startIndex; i <= endIndex; i++) {
         const dayDate = XlsxPopulate.numberToDate(day.v);
 
         newLessons.push({
-            date: `${dayDate.getDate()}.${dayDate.getMonth() + 1}.${dayDate.getFullYear()}`,
-            '8:00-10:30': { lessons: [] },
-            '10:45-13:15': { lessons: [] },
-            '14:00-16:30': { lessons: [] },
-            '16:45-19:15': { lessons: [] },
-            rowStart: i,
-            rowEnd: i + 12
+            sobota: {
+                date: `${dayDate.getDate()}.${dayDate.getMonth() + 1}.${dayDate.getFullYear()}`,
+                '8:00-10:30': { lessons: [] },
+                '10:45-13:15': { lessons: [] },
+                '14:00-16:30': { lessons: [] },
+                '16:45-19:15': { lessons: [] },
+                rowStart: i,
+                rowEnd: i + 12
+            }
         })
     }
 }
@@ -207,12 +209,12 @@ groups.map(group => {
         }
 
         // field && console.log("row", i)
-        // field && typeof field.v !== "number" && hour && console.log(field.v, hour.v);
+        field && typeof field.v !== "number" && hour && console.log(field.v, hour.v);
 
         if (field && typeof field.v !== "number") {
             newLessons.map((newLesson, j) => {
-                if (newLesson.rowStart <= i && newLesson.rowEnd >= i) {
-                    newLessons[j][lastHour].lessons.push({
+                if (newLesson.sobota.rowStart <= i && newLesson.sobota.rowEnd >= i) {
+                    newLessons[j].sobota[lastHour].lessons.push({
                         name: field.v,
                         groups: {
                             w: group.w,
@@ -225,6 +227,16 @@ groups.map(group => {
         }
     }
 })
+
+// console.log(newLessons)
+
+// XlsxPopulate.fromFileAsync('./plan-2.xlsx')
+//     .then(workbook => {
+//         let lessons = createArrayFromY1Workbook(workbook)
+
+//         console.log(lessons)
+//     })
+//     .catch(err => console.log(err))
 
 app.get('/lessons', (req, res) => {
     // XlsxPopulate.fromFileAsync('./plan-2.xlsx')
