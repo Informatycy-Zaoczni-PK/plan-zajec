@@ -107,8 +107,8 @@ const createDates = (array) => {
 
 const createArrayFromY1Workbook = (workbook) => {
 
-    const dates = createDates(workbook.sheet('2020_2021').range('A4:A392').value());
-    let array = createHours(workbook.sheet('2020_2021').range('B3:B392').value());
+    const dates = createDates(workbook.sheet('2021_2022').range('A4:A392').value());
+    let array = createHours(workbook.sheet('2021_2022').range('B3:B392').value());
     dates.map((date, index) => {
         array.map((week, weekIndex) => {
             Object.keys(week).map(weekDay => {
@@ -121,12 +121,12 @@ const createArrayFromY1Workbook = (workbook) => {
         })
     })
 
-    array = createLessons(workbook.sheet('2020_2021').range('J21:J461').value(), array, { w: 1, c: 1, l: 1 });
-    array = createLessons(workbook.sheet('2020_2021').range('K21:K461').value(), array, { w: 1, c: 1, l: 2 });
-    array = createLessons(workbook.sheet('2020_2021').range('L21:L461').value(), array, { w: 1, c: 2, l: 3 });
-    array = createLessons(workbook.sheet('2020_2021').range('M21:M461').value(), array, { w: 1, c: 2, l: 4 });
-    array = createLessons(workbook.sheet('2020_2021').range('N21:N461').value(), array, { w: 1, c: 3, l: 5 });
-    array = createLessons(workbook.sheet('2020_2021').range('N21:N461').value(), array, { w: 1, c: 3, l: 6 });
+    array = createLessons(workbook.sheet('2021_2022').range('J21:J461').value(), array, { w: 1, c: 1, l: 1 });
+    array = createLessons(workbook.sheet('2021_2022').range('K21:K461').value(), array, { w: 1, c: 1, l: 2 });
+    array = createLessons(workbook.sheet('2021_2022').range('L21:L461').value(), array, { w: 1, c: 2, l: 3 });
+    array = createLessons(workbook.sheet('2021_2022').range('M21:M461').value(), array, { w: 1, c: 2, l: 4 });
+    array = createLessons(workbook.sheet('2021_2022').range('N21:N461').value(), array, { w: 1, c: 3, l: 5 });
+    array = createLessons(workbook.sheet('2021_2022').range('N21:N461').value(), array, { w: 1, c: 3, l: 6 });
     array = new Object(array);
     return array;
 }
