@@ -94,7 +94,6 @@ const createDates = (array) => {
     let lastKnownDate = '00.00.0000';
     let newArray = []
     array.map((date, index) => {
-        console.log(date);
         if (typeof date[0] !== "undefined") {
             if (typeof date[0] === "number") {
                 const _date = XlsxPopulate.numberToDate(date[0]);
@@ -114,8 +113,8 @@ const createDates = (array) => {
 
 const createArrayFromY1Workbook = (workbook) => {
 
-    const dates = createDates(workbook.sheet('2021_2022').range('A8:A461').value());
-    let array = createHours(workbook.sheet('2021_2022').range('B7:B460').value());
+    const dates = createDates(workbook.sheet('2021_2022').range('A8:A474').value());
+    let array = createHours(workbook.sheet('2021_2022').range('B7:B474').value());
     dates.map((date, index) => {
         array.map((week, weekIndex) => {
             Object.keys(week).map(weekDay => {
@@ -128,23 +127,15 @@ const createArrayFromY1Workbook = (workbook) => {
         })
     })
 
-    array = createLessons(workbook.sheet('2021_2022').range('J8:J461').value(), array, { w: 1, c: 1, l: 1 });
-    array = createLessons(workbook.sheet('2021_2022').range('K8:K461').value(), array, { w: 1, c: 1, l: 2 });
-    array = createLessons(workbook.sheet('2021_2022').range('L8:L461').value(), array, { w: 1, c: 2, l: 3 });
-    array = createLessons(workbook.sheet('2021_2022').range('M8:M461').value(), array, { w: 1, c: 2, l: 4 });
-    array = createLessons(workbook.sheet('2021_2022').range('N8:N461').value(), array, { w: 1, c: 3, l: 5 });
-    array = createLessons(workbook.sheet('2021_2022').range('N8:N461').value(), array, { w: 1, c: 3, l: 6 });
+    array = createLessons(workbook.sheet('2021_2022').range('J8:J474').value(), array, { w: 1, c: 1, l: 1 });
+    array = createLessons(workbook.sheet('2021_2022').range('K8:K474').value(), array, { w: 1, c: 1, l: 2 });
+    array = createLessons(workbook.sheet('2021_2022').range('L8:L474').value(), array, { w: 1, c: 2, l: 3 });
+    array = createLessons(workbook.sheet('2021_2022').range('M8:M474').value(), array, { w: 1, c: 2, l: 4 });
+    array = createLessons(workbook.sheet('2021_2022').range('N8:N474').value(), array, { w: 1, c: 3, l: 5 });
+    array = createLessons(workbook.sheet('2021_2022').range('N8:N474').value(), array, { w: 1, c: 3, l: 6 });
     array = new Object(array);
     return array;
 }
-
-XlsxPopulate.fromFileAsync('./plan-2.xlsx')
-    .then(workbook => {
-        let lessons = createArrayFromY1Workbook(workbook)
-
-        // console.log(lessons);
-    })
-    .catch(err => console.log(err))
 
 app.get('/lessons', (req, res) => {
     XlsxPopulate.fromFileAsync('./plan-2.xlsx')
