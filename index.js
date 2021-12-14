@@ -182,7 +182,12 @@ for (let i = startIndex; i <= endIndex; i++) {
     const day = data.Sheets["2021_2022"][`A${i}`];
 
     if (day) {
-        const dayDate = XlsxPopulate.numberToDate(day.v);
+        let dayDate;
+        if (typeof day.v === "number") {
+            dayDate = XlsxPopulate.numberToDate(day.v);
+        } else {
+            dayDate = day.v
+        }
 
         newLessons.push({
             sobota: {
@@ -209,7 +214,7 @@ groups.map(group => {
         }
 
         // field && console.log("row", i)
-        field && typeof field.v !== "number" && hour && console.log(field.v, hour.v);
+        // field && typeof field.v !== "number" && hour && console.log(field.v, hour.v);
 
         if (field && typeof field.v !== "number") {
             newLessons.map((newLesson, j) => {
