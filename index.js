@@ -3,6 +3,7 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require('path')
 const XlsxPopulate = require('xlsx-populate');
+const xlsx = require('xlsx');
 
 const app = express();
 
@@ -137,14 +138,104 @@ const createArrayFromY1Workbook = (workbook) => {
     return array;
 }
 
-app.get('/lessons', (req, res) => {
-    XlsxPopulate.fromFileAsync('./plan-2.xlsx')
-        .then(workbook => {
-            let lessons = createArrayFromY1Workbook(workbook)
+const newLessons = []
 
-            res.status(200).json(lessons)
+const data = xlsx.readFile("./plan-2.xls");
+
+const groups = [
+    {
+        column: "J",
+        w: 1,
+        c: 1,
+        l: 1
+    },
+    {
+        column: "K",
+        w: 1,
+        c: 1,
+        l: 2
+    },
+    {
+        column: "L",
+        w: 1,
+        c: 2,
+        l: 3
+    },
+    {
+        column: "M",
+        w: 1,
+        c: 2,
+        l: 4
+    },
+    {
+        column: "N",
+        w: 1,
+        c: 3,
+        l: 5
+    },
+]
+
+const startIndex = 8;
+const endIndex = 474;
+
+for (let i = startIndex; i <= endIndex; i++) {
+    const day = data.Sheets["2021_2022"][`A${i}`];
+
+    if (day) {
+        const dayDate = XlsxPopulate.numberToDate(day.v);
+
+        newLessons.push({
+            date: `${dayDate.getDate()}.${dayDate.getMonth() + 1}.${dayDate.getFullYear()}`,
+            '8:00-10:30': { lessons: [] },
+            '10:45-13:15': { lessons: [] },
+            '14:00-16:30': { lessons: [] },
+            '16:45-19:15': { lessons: [] },
+            rowStart: i,
+            rowEnd: i + 12
         })
-        .catch(err => console.log(err))
+    }
+}
+
+groups.map(group => {
+    let lastHour = "8:00-10:30";
+    for (let i = startIndex; i <= endIndex; i++) {
+        const hour = data.Sheets["2021_2022"][`B${i}`];
+        const field = data.Sheets["2021_2022"][`${group.column}${i}`];
+
+        if (hour && lastHour !== hour.v) {
+            lastHour = hour.v;
+        }
+
+        // field && console.log("row", i)
+        // field && typeof field.v !== "number" && hour && console.log(field.v, hour.v);
+
+        if (field && typeof field.v !== "number") {
+            newLessons.map((newLesson, j) => {
+                if (newLesson.rowStart <= i && newLesson.rowEnd >= i) {
+                    newLessons[j][lastHour].lessons.push({
+                        name: field.v,
+                        groups: {
+                            w: group.w,
+                            c: group.c,
+                            l: group.l
+                        }
+                    })
+                }
+            })
+        }
+    }
+})
+
+app.get('/lessons', (req, res) => {
+    // XlsxPopulate.fromFileAsync('./plan-2.xlsx')
+    //     .then(workbook => {
+    //         let lessons = createArrayFromY1Workbook(workbook)
+
+    //         res.status(200).json(lessons)
+    //     })
+    //     .catch(err => console.log(err))
+
+    res.status(200).json(newLessons)
 })
 
 app.get('/', function (req, res) {
