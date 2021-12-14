@@ -107,8 +107,8 @@ const createDates = (array) => {
 
 const createArrayFromY1Workbook = (workbook) => {
 
-    const dates = createDates(workbook.sheet('2021_2022').range('A4:A392').value());
-    let array = createHours(workbook.sheet('2021_2022').range('B3:B392').value());
+    const dates = createDates(workbook.sheet('2021_2022').range('A21:A461').value());
+    let array = createHours(workbook.sheet('2021_2022').range('B20:B460').value());
     dates.map((date, index) => {
         array.map((week, weekIndex) => {
             Object.keys(week).map(weekDay => {
