@@ -184,14 +184,15 @@ for (let i = startIndex; i <= endIndex; i++) {
     if (day) {
         let dayDate;
         if (typeof day.v === "number") {
-            dayDate = XlsxPopulate.numberToDate(day.v);
+            const _date = XlsxPopulate.numberToDate(day.v);
+            dayDate = `${_date.getDate()}.${_date.getMonth() + 1}.${_date.getFullYear()}`;
         } else {
             dayDate = day.v
         }
 
         newLessons.push({
             sobota: {
-                date: `${dayDate.getDate()}.${dayDate.getMonth() + 1}.${dayDate.getFullYear()}`,
+                date: dayDate,
                 '8:00-10:30': { lessons: [] },
                 '10:45-13:15': { lessons: [] },
                 '14:00-16:30': { lessons: [] },
