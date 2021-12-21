@@ -116,3 +116,11 @@ app.get('/', function (req, res) {
 app.listen(process.env.PORT || 8080, () => {
     console.log('Server listening on port 8080');
 })
+
+setInterval(() => {
+    fs.appendFile("./log", `${new Date(Date.now()).toUTCString()} - Working\n`, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+}, 1000 * 60 * 60 * 12);
