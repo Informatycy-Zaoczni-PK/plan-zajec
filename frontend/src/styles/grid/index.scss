@@ -1,0 +1,34 @@
+@use 'sass:math';
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &-hcenter {
+        justify-content: center;
+    }
+
+    &-vcenter {
+        align-items: center;
+    }
+}
+
+@for $i from 0 to $gridColumnsCount + 1 {
+    .col-#{$i} {
+        flex: 1 0 (math.div(100%, $gridColumnsCount) * $i);
+        max-width: (math.div(100%, $gridColumnsCount) * $i);
+    }
+}
+
+.col {
+    &-auto {
+        flex: 1 0 auto;
+        max-width: fit-content;
+    }
+
+    &-grow {
+        flex: 1 0;
+        max-width: 100%;
+    }
+}

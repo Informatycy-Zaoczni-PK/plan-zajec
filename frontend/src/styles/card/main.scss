@@ -1,0 +1,33 @@
+.card {
+    border-radius: 10px;
+
+    padding: $gridSpacing;
+
+    box-shadow: 0px 10px 15px -5px rgba($bgColor1, .5);
+
+    &--header {
+        padding-bottom: $gridSpacing * .5;
+        margin-bottom: $gridSpacing * .5;
+        border-bottom: 1px solid rgba($fontColor1, .3);
+    }
+
+    &-bg_1 {
+        background-color: $themeColor1;
+    }
+
+    &-bg_2 {
+        background-color: $themeColor2;
+    }
+
+    &-bg_3 {
+        background-color: $themeColor3;
+    }
+
+    &-bg_4 {
+        background-color: $themeColor4;
+    }
+
+    &:not(:last-child){
+        margin-bottom: $gridSpacing;
+    }
+}

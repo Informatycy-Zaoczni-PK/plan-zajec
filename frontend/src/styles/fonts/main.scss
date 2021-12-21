@@ -1,0 +1,92 @@
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: normal;
+}
+
+.h1 {
+    font-size: $fontSizeH1;
+}
+
+.h2 {
+    font-size: $fontSizeH2;
+}
+
+.h3 {
+    font-size: $fontSizeH3;
+}
+
+.size {
+    &-xxxl {
+        font-size: $fontSizeXxxl;
+    }
+
+    &-xxl {
+        font-size: $fontSizeXxl;
+    }
+
+    &-xl {
+        font-size: $fontSizeXl;
+    }
+
+    &-l {
+        font-size: $fontSizeL;
+    }
+
+    &-m {
+        font-size: $fontSizeM;
+    }
+
+    &-s {
+        font-size: $fontSizeS;
+    }
+
+    &-xs {
+        font-size: $fontSizeXs;
+    }
+
+    &-xxs {
+        font-size: $fontSizeXxs;
+    }
+
+    &-xxxs {
+        font-size: $fontSizeXxxs;
+    }
+}
+
+.color {
+    &-light_1 {
+        color: $fontColor1;
+    }
+}
+
+.weight {
+    &-normal {
+        font-weight: 400;
+    }
+
+    &-semibold {
+        font-weight: 600;
+    }
+
+    &-bold {
+        font-weight: 700;
+    }
+}
+
+.align {
+    &-left {
+        text-align: left;
+    }
+
+    &-center {
+        text-align: center;
+    }
+
+    &-right {
+        text-align: right;
+    }
+}
+
+.line-through {
+    text-decoration: line-through;
+}

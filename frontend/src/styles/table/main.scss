@@ -1,0 +1,24 @@
+.table {
+    width: 100%;
+    border-spacing: 0;
+
+    & .cell-m {
+        width: 10rem;
+    }
+
+    & thead th {
+        color: rgba($fontColor1, .7);
+        padding: $gridSpacing;
+    }
+
+    & td {
+        padding: $gridSpacing;
+        border-top: 1px solid #7777773a;
+        border-bottom: 1px solid #7777773a;
+
+        &:first-child {
+            border-left: 0px solid #7777773a;
+            border-right: 1px solid #7777773a;
+        }
+    }
+}
