@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const newLessons = []
 
-const data = xlsx.readFile("./plan-2.xls");
+const data = xlsx.readFile("./plan.xls");
 
 const groups = [
     {
