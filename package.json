@@ -13,7 +13,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "puppeteer": "^13.0.1",
     "xlsx": "^0.17.4",
     "xlsx-populate": "^1.21.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.4"
   }
 }

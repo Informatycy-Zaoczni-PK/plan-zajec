@@ -4,6 +4,8 @@ const cors = require('cors');
 const path = require('path')
 const XlsxPopulate = require('xlsx-populate');
 const xlsx = require('xlsx');
+const https = require('https');
+const puppeteer = require('puppeteer');
 
 const app = express();
 
@@ -116,6 +118,30 @@ app.get('/', function (req, res) {
 app.listen(process.env.PORT || 8080, () => {
     console.log('Server listening on port 8080');
 })
+
+const scrapeClasses = async () => {
+    const browser = await puppeteer.launch({});
+    const page = await browser.newPage();
+
+    await page.goto('https://it.pk.edu.pl/?page=rz');
+    const anchor = await page.waitForSelector('.alert.readmetxt.alert-light > ol > li:nth-child(1) > a');
+    const anchorHref = await page.evaluate(anchor => anchor.href, anchor);
+
+    const file = fs.createWriteStream('./plan.xls');
+    const request = https.get(anchorHref, (response => {
+        response.pipe(file);
+        file.on('finish', () => {
+            file.close();
+        })
+    })).on('error', function (err) {
+        fs.unlink('./plan.xls');
+        console.log(err);
+    });
+}
+
+setInterval(() => {
+    https.get(`https://plan-zajec.herokuapp.com/`);
+}, 1000 * 60 * 10);
 
 setInterval(() => {
     fs.appendFile("./log", `${new Date(Date.now()).toUTCString()} - Working\n`, (err) => {
