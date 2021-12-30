@@ -124,7 +124,7 @@ app.listen(process.env.PORT || 8080, () => {
 })
 
 const scrapeClasses = async () => {
-    const browser = await puppeteer.launch({});
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
 
     await page.goto('https://it.pk.edu.pl/?page=rz');
