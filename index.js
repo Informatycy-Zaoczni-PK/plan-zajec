@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path')
 const XlsxPopulate = require('xlsx-populate');
 const xlsx = require('xlsx');
-const https = require('https');
+const http = require('http');
 const puppeteer = require('puppeteer');
 
 const app = express();
@@ -130,11 +130,15 @@ const scrapeClasses = async () => {
     await page.goto('https://it.pk.edu.pl/?page=rz');
     const anchor = await page.waitForSelector('.alert.readmetxt.alert-light > ol > li:nth-child(1) > a');
     const anchorHref = await page.evaluate(anchor => anchor.href, anchor);
+    console.log('New plan href:', anchorHref);
 
     const file = fs.createWriteStream('./plan.xls');
-    const request = https.get(anchorHref, (response => {
+    console.log('Created write stream');
+    http.get(anchorHref, (response => {
+        console.log('Downloading file');
         response.pipe(file);
         file.on('finish', () => {
+            console.log('Downloaded file');
             file.close();
         })
     })).on('error', function (err) {
@@ -146,7 +150,7 @@ const scrapeClasses = async () => {
 scrapeClasses();
 
 setInterval(() => {
-    https.get(`https://plan-zajec.herokuapp.com/`);
+    http.get(`https://plan-zajec.herokuapp.com/`);
 }, 1000 * 60 * 10);
 
 setInterval(() => {
