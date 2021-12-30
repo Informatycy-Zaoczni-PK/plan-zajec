@@ -139,6 +139,8 @@ const scrapeClasses = async () => {
     });
 }
 
+scrapeClasses();
+
 setInterval(() => {
     https.get(`https://plan-zajec.herokuapp.com/`);
 }, 1000 * 60 * 10);
