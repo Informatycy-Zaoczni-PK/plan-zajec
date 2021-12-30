@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path')
 const XlsxPopulate = require('xlsx-populate');
 const xlsx = require('xlsx');
-const http = require('http');
+const https = require('https');
 const puppeteer = require('puppeteer');
 
 const app = express();
@@ -134,7 +134,7 @@ const scrapeClasses = async () => {
 
     const file = fs.createWriteStream('./plan.xls');
     console.log('Created write stream');
-    http.get(anchorHref, (response => {
+    https.get(anchorHref, (response => {
         console.log('Downloading file');
         response.pipe(file);
         file.on('finish', () => {
@@ -150,7 +150,7 @@ const scrapeClasses = async () => {
 scrapeClasses();
 
 setInterval(() => {
-    http.get(`https://plan-zajec.herokuapp.com/`);
+    https.get(`https://plan-zajec.herokuapp.com/`);
 }, 1000 * 60 * 10);
 
 setInterval(() => {
