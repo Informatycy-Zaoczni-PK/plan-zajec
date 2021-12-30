@@ -130,21 +130,19 @@ const scrapeClasses = async () => {
     await page.goto('https://it.pk.edu.pl/?page=rz');
     const anchor = await page.waitForSelector('.alert.readmetxt.alert-light > ol > li:nth-child(1) > a');
     const anchorHref = await page.evaluate(anchor => anchor.href, anchor);
-    console.log('New plan href:', anchorHref);
 
     const file = fs.createWriteStream('./plan.xls');
-    console.log('Created write stream');
     https.get(anchorHref, (response => {
-        console.log('Downloading file');
         response.pipe(file);
         file.on('finish', () => {
-            console.log('Downloaded file');
             file.close();
         })
     })).on('error', function (err) {
         fs.unlink('./plan.xls');
         console.log(err);
     });
+
+    console.log(`${new Date(Date.now()).toUTCString()} - Scraped classes`);
 }
 
 scrapeClasses();
@@ -159,4 +157,5 @@ setInterval(() => {
             console.log(err);
         }
     });
+    scrapeClasses();
 }, 1000 * 60 * 60 * 12);
