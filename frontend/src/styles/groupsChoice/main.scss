@@ -1,0 +1,10 @@
+.groups-choice {
+    position: fixed;
+    top: $gridSpacing;
+    left: 50%;
+    transform: translateX(-50%);
+
+    backdrop-filter: blur(4px);
+
+    background-color: rgba($themeColor1, .5);
+}

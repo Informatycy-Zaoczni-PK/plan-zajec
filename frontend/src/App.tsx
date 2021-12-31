@@ -30,7 +30,7 @@ const App: React.FC = () => {
     return (
         <div className="row row-hcenter">
             <div className="col-12 mt-1 pl-1 pr-1 mb-3">
-                <div className="card card-bg_1">
+                <div className="groups-choice card">
                     <div className="row row-hcenter row-vcenter">
                         <div className="col-12 mb-2">
                             <h1 className="h3 color-light_1 weight-bold align-center">Wybierz swoje grupy</h1>
@@ -60,7 +60,7 @@ const App: React.FC = () => {
                 </div>
             </div>
 
-            <div className="col-12 pl-1 pr-1">
+            <div className="col-12 pl-4 pr-4 pt-14 pb-14">
                 <table className="table">
                     <thead>
                         <tr>
