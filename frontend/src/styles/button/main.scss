@@ -1,0 +1,20 @@
+.btn {
+  border: none;
+  outline: none;
+  padding: $gridSpacing / 2;
+  border-radius: $gridSpacing / 2;
+
+  &-bg {
+    background-color: #564787;
+
+    transition: background-color 200ms;
+
+    &:hover {
+      background-color: #45386d;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

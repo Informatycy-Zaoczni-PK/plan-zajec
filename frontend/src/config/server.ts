@@ -1,1 +1,1 @@
-export const address = "https://plan-zajec.herokuapp.com";
+export const address = "http://localhost:8080";
