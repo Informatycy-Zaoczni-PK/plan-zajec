@@ -134,37 +134,38 @@ const App: React.FC = () => {
           </thead>
 
           <tbody>
-            {classDays.map((classDay) => {
-              return (
-                <tr>
-                  <td className="color-light_1">{classDay.date}</td>
+            {classDays &&
+              classDays.map((classDay) => {
+                return (
+                  <tr>
+                    <td className="color-light_1">{classDay.date}</td>
 
-                  <td>
-                    {classDay["8.00-10.30"].lessons.map((lesson) => {
-                      return <ClassCard groups={groups} lesson={lesson} />;
-                    })}
-                  </td>
+                    <td>
+                      {classDay["8.00-10.30"].lessons.map((lesson) => {
+                        return <ClassCard groups={groups} lesson={lesson} />;
+                      })}
+                    </td>
 
-                  <td>
-                    {classDay["10.45-13.15"].lessons.map((lesson) => {
-                      return <ClassCard groups={groups} lesson={lesson} />;
-                    })}
-                  </td>
+                    <td>
+                      {classDay["10.45-13.15"].lessons.map((lesson) => {
+                        return <ClassCard groups={groups} lesson={lesson} />;
+                      })}
+                    </td>
 
-                  <td>
-                    {classDay["14.00-16.30"].lessons.map((lesson) => {
-                      return <ClassCard groups={groups} lesson={lesson} />;
-                    })}
-                  </td>
+                    <td>
+                      {classDay["14.00-16.30"].lessons.map((lesson) => {
+                        return <ClassCard groups={groups} lesson={lesson} />;
+                      })}
+                    </td>
 
-                  <td>
-                    {classDay["16.45-19.15"].lessons.map((lesson) => {
-                      return <ClassCard groups={groups} lesson={lesson} />;
-                    })}
-                  </td>
-                </tr>
-              );
-            })}
+                    <td>
+                      {classDay["16.45-19.15"].lessons.map((lesson) => {
+                        return <ClassCard groups={groups} lesson={lesson} />;
+                      })}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
